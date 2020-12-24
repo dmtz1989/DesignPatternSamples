@@ -24,12 +24,12 @@ namespace DesignPatternSamples.WebAPI.Controllers.Detran
         }
 
         [HttpGet()]
-        [ProducesResponseType(typeof(SuccessResultModel<IEnumerable<DebitoVeiculoModel>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(SuccessResultModel<IEnumerable<DebitosController>>), StatusCodes.Status200OK)]
         public async Task<ActionResult> Get([FromQuery]VeiculoModel model)
         {
             var debitos = await _DetranVerificadorDebitosServices.ConsultarDebitos(_Mapper.Map<Veiculo>(model));
 
-            var result = new SuccessResultModel<IEnumerable<DebitoVeiculoModel>>(_Mapper.Map<IEnumerable<DebitoVeiculoModel>>(debitos));
+            var result = new SuccessResultModel<IEnumerable<PontosVeiculoModel>>(_Mapper.Map<IEnumerable<PontosVeiculoModel>>(debitos));
 
             return Ok(result);
         }

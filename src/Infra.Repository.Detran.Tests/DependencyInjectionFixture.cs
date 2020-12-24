@@ -18,7 +18,13 @@ namespace DesignPatternsSamples.Infra.Repository.Detran.Tests
                 .AddTransient<DetranSPVerificadorDebitosRepository>()
                 .AddTransient<DetranRJVerificadorDebitosRepository>()
                 .AddTransient<DetranRSVerificadorDebitosRepository>()
-                .AddSingleton<IDetranVerificadorDebitosFactory, DetranVerificadorDebitosFactory>();
+                .AddTransient<DetranPEVerificadorPontosRepository>()
+                .AddTransient<DetranSPVerificadorPontosRepository>()
+                .AddTransient<DetranRJVerificadorPontosRepository>()
+                .AddTransient<DetranRSVerificadorPontosRepository>()
+                .AddSingleton<IDetranVerificadorDebitosFactory, DetranVerificadorDebitosFactory>()
+                .AddSingleton<IDetranVerificadorPontosFactory, DetranVerificadorPontosFactory>();
+
 
             #region IConfiguration
             services.AddTransient<IConfiguration>((services) =>
@@ -36,7 +42,11 @@ namespace DesignPatternsSamples.Infra.Repository.Detran.Tests
                 .Register("PE", typeof(DetranPEVerificadorDebitosRepository))
                 .Register("RJ", typeof(DetranRJVerificadorDebitosRepository))
                 .Register("SP", typeof(DetranSPVerificadorDebitosRepository))
-                .Register("RS", typeof(DetranRSVerificadorDebitosRepository));
+                .Register("RS", typeof(DetranRSVerificadorDebitosRepository))
+                .Register("PE", typeof(DetranPEVerificadorPontosRepository))
+                .Register("RJ", typeof(DetranRJVerificadorPontosRepository))
+                .Register("SP", typeof(DetranSPVerificadorPontosRepository))
+                .Register("RS", typeof(DetranRSVerificadorPontosRepository));
         }
     }
 }

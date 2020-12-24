@@ -101,13 +101,21 @@ namespace DesignPatternSamples.WebAPI
         {
             return services
                 .AddTransient<IDetranVerificadorDebitosService, DetranVerificadorDebitosServices>()
+                .AddTransient<IDetranVerificadorPontosService, DetranVerificadorPontosServices>()
                 .Decorate<IDetranVerificadorDebitosService, DetranVerificadorDebitosDecoratorCache>()
+                .Decorate<IDetranVerificadorPontosService, DetranVerificadorPontosDecoratorCache>()
                 .Decorate<IDetranVerificadorDebitosService, DetranVerificadorDebitosDecoratorLogger>()
+                .Decorate<IDetranVerificadorPontosService, DetranVerificadorPontosDecoratorLogger>()
                 .AddSingleton<IDetranVerificadorDebitosFactory, DetranVerificadorDebitosFactory>()
+                .AddSingleton<IDetranVerificadorPontosFactory, DetranVerificadorPontosFactory>()
                 .AddTransient<DetranPEVerificadorDebitosRepository>()
                 .AddTransient<DetranSPVerificadorDebitosRepository>()
                 .AddTransient<DetranRJVerificadorDebitosRepository>()
                 .AddTransient<DetranRSVerificadorDebitosRepository>()
+                .AddTransient<DetranPEVerificadorPontosRepository>()
+                .AddTransient<DetranSPVerificadorPontosRepository>()
+                .AddTransient<DetranRJVerificadorPontosRepository>()
+                .AddTransient<DetranRSVerificadorPontosRepository>()
                 .AddScoped<ExceptionHandlingMiddleware>();
         }
 
@@ -133,5 +141,18 @@ namespace DesignPatternSamples.WebAPI
 
             return app;
         }
+
+        public static IApplicationBuilder UseDetranVerificadorPontosFactory(this IApplicationBuilder app)
+        {
+            app.ApplicationServices.GetService<IDetranVerificadorDebitosFactory>()
+                .Register("PE", typeof(DetranPEVerificadorPontosRepository))
+                .Register("RJ", typeof(DetranRJVerificadorPontosRepository))
+                .Register("SP", typeof(DetranSPVerificadorPontosRepository))
+                .Register("RS", typeof(DetranRSVerificadorPontosRepository));
+
+            return app;
+        }
+
+
     }
 }

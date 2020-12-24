@@ -2,7 +2,7 @@
 
 namespace DesignPatternSamples.WebAPI.Models.Detran
 {
-    public class DebitoVeiculoModel
+    public class PontosVeiculoModel
     {
         public DateTime DataOcorrencia { get; set; }
         public string Descricao { get; set; }
